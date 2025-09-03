@@ -1,9 +1,9 @@
-import React, { useState } from 'react'; // ⬅️ Add useState here
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import NoteCard from '../../components/Cards/NoteCard';
 import { MdAdd } from "react-icons/md";
 import AddEditNotes from './AddEditNotes';
-import Modal from "react-modal";
+import Modal from "react-modal"; // ⬅️ Add this import
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEdit] = useState({
@@ -78,9 +78,9 @@ const Home = () => {
         </div>
       </div>
 
-      <button 
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-blue-600 hover:bg-blue-500 absolute right-10 bottom-10" 
-        onClick={() => { // ⬅️ Corrected syntax and case
+      <button
+        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-blue-600 hover:bg-blue-500 absolute right-10 bottom-10"
+        onClick={() => {
           setOpenAddEdit({ isShown: true, type: "add", data: null });
         }}
       >
@@ -96,10 +96,16 @@ const Home = () => {
           },
         }}
         contentLabel="Add/Edit Note Modal"
-        className="w-full max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 relative top-1/2 -translate-y-1/2" // ⬅️ Added modal styling
+        className="w-full max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6 relative top-1/2 -translate-y-1/2"
       >
-        <AddEditNotes />
-      </Modal>
+        <AddEditNotes 
+        type={openAddEditModal.type}
+        noteData = {openAddEditModal.data}
+        onClose={()=>{
+          setOpenAddEditModal({isShown : false , type:"add" , data:null  });
+        }}
+        />
+      </Modal> 
     </>
   );
 };
